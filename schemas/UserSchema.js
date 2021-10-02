@@ -1,7 +1,6 @@
-import { Schema as _Schema, model } from "mongoose";
-
-const Schema = _Schema();
 const mongoose = require("mongoose");
+
+const Schema = mongoose.Schema
 
 const userSchema = new Schema({
     firstName: {
@@ -34,9 +33,9 @@ const userSchema = new Schema({
         type: String,
         default: "/images/profilePic.png"
     }
-});
+}, { timestamps: true });
 
 
-let User = model("User", userSchema);
+let User = mongoose.model("User", userSchema);
 
-export default User;
+module.exports =  User;
