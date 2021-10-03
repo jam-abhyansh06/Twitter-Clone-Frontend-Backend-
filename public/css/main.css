@@ -36,6 +36,7 @@ nav a {
     display: flex;
     align-items: center;
     justify-content: center;
+    color: #212529;
 }
 
 nav a.blue {
