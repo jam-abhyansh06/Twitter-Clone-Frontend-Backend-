@@ -1,3 +1,7 @@
+:root {
+    --blue: #1FA2F1;
+}
+
 body {
     background-color: #0099ff;
 }
@@ -42,3 +46,4 @@ input[type="submit"] {
     border-radius: 2px;
     margin-bottom: 10px;
 }
+
