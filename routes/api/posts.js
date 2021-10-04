@@ -82,32 +82,38 @@ router.put("/:id/like", async (req, res, next) => {
 
 router.post("/:id/retweet", async (req, res, next) => {
     
-    // let postId = req.params.id;
-    // let userId = req.session.user._id;
+    let postId = req.params.id;
+    let userId = req.session.user._id;
 
-    // // isLiked checked with both conditions as using only second was giving error when user had not liked even one post
-    // let isLiked = req.session.user.likes && req.session.user.likes.includes(postId);
+    // Try and delete request 
+    let deletedPost = await Post.findOneAndDelete({ postedBy: userId, retweetData: postId })
+    .catch(error=> {
+        console.log(error);
+        res.sendStatus(400);
+    })
 
-    // let option = isLiked ? "$pull" : "$addToSet"
+    let option = deletedPost != null ? "$pull" : "$addToSet"
 
-    // // Insert or Delete user likes
+    return res.status(200).send("success")
+
+    // Insert or Delete user likes
     
-    // // {new: true} gives new updated user object and assigning it to req.session.user caches it so that unliking features work properly
+    // {new: true} gives new updated user object and assigning it to req.session.user caches it so that unliking features work properly
     
-    // req.session.user = await User.findByIdAndUpdate(userId, { [option] : {likes: postId} }, {new: true})
-    // .catch(error=> {
-    //     console.log(error);
-    //     res.sendStatus(400);
-    // })
+    req.session.user = await User.findByIdAndUpdate(userId, { [option] : {likes: postId} }, {new: true})
+    .catch(error=> {
+        console.log(error);
+        res.sendStatus(400);
+    })
 
 
-    // // Insert or Delete post likes
+    // Insert or Delete post likes
 
-    // let post = await Post.findByIdAndUpdate(postId, { [option] : {likes: userId} }, {new: true})
-    // .catch(error=> {
-    //     console.log(error);
-    //     res.sendStatus(400);
-    // })
+    let post = await Post.findByIdAndUpdate(postId, { [option] : {likes: userId} }, {new: true})
+    .catch(error=> {
+        console.log(error);
+        res.sendStatus(400);
+    })
 
 
 
