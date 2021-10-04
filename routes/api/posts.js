@@ -94,22 +94,28 @@ router.post("/:id/retweet", async (req, res, next) => {
 
     let option = deletedPost != null ? "$pull" : "$addToSet"
 
-    return res.status(200).send("success")
+    let repost = deletedPost;
 
-    // Insert or Delete user likes
-    
-    // {new: true} gives new updated user object and assigning it to req.session.user caches it so that unliking features work properly
-    
-    req.session.user = await User.findByIdAndUpdate(userId, { [option] : {likes: postId} }, {new: true})
+    if(repost === null) {
+        repost = await Post.create({postedBy: userId, repostData: postId})
+        .catch(error=> {
+            console.log(error);
+            res.sendStatus(400);
+        })
+    }
+
+    // Insert or Delete user retweet
+
+    req.session.user = await User.findByIdAndUpdate(userId, { [option] : { retweeets: repost._id } }, {new: true})
     .catch(error=> {
         console.log(error);
         res.sendStatus(400);
     })
 
 
-    // Insert or Delete post likes
+    // Insert or Delete post retweet
 
-    let post = await Post.findByIdAndUpdate(postId, { [option] : {likes: userId} }, {new: true})
+    let post = await Post.findByIdAndUpdate(postId, { [option] : {retweetUsers: userId} }, {new: true})
     .catch(error=> {
         console.log(error);
         res.sendStatus(400);
@@ -117,7 +123,7 @@ router.post("/:id/retweet", async (req, res, next) => {
 
 
 
-    res.status(200).send("POST retweet success")
+    res.status(200).send(post)
 })
 
 
