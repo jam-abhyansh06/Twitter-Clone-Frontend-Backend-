@@ -46,8 +46,23 @@ router.post("/", async (req, res, next) => {
     
 })
 
-router.put("/", async (req, res, next) => {
-    res.status(200).send("PUT Successfull")
+router.put("/:id/like", async (req, res, next) => {
+    
+    let postId = req.params.id;
+    let userId = req.session.user._id;
+
+    // isLiked checked with both conditions as using only second was giving error when user had not liked even one post
+    let isLiked = req.session.user.likes && req.session.user.likes.includes(postId);
+
+    let option = isLiked ? "$pull" : "$addToSet"
+
+    // Insert or Delete user likes
+
+    await User.findByIdAndUpdate(userId, { [option] : {likes: postId} })
+
+    // Insert or Delete post likes
+
+    res.status(200).send("PUT success")
 })
 
 module.exports = router;

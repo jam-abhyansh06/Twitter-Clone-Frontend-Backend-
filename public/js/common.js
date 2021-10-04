@@ -44,7 +44,7 @@ $(document).on("click", ".likeButton", (event) => {
 
     // ajax call for PUT as shortcut is only available for GET & POST ($.get(), $.post())
     $.ajax({
-        url: "/api/posts",
+        url: `/api/posts/${postId}/like`,
         type: "PUT",
         success: (postData) => {
             console.log(postData);
@@ -56,9 +56,9 @@ $(document).on("click", ".likeButton", (event) => {
 
 function getPostIdFromElement(element) {
     // element which has id (data-id) has class "post"
-    let isRoot = element.hasClass("post");              // check if already at root
+    let isRoot = element.hasClass("post");              
     let rootElement = isRoot == true ? element : element.closest(".post")
-    let postId = rootElement.data().id;                 // .data() gives value for "data-*" attributes
+    let postId = rootElement.data().id;                 
 
     if(postId === undefined)    return alert("Post Id undefined")
 
