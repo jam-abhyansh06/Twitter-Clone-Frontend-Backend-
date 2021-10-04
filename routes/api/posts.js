@@ -77,7 +77,7 @@ router.put("/:id/like", async (req, res, next) => {
 
 
 
-    res.status(200).send("PUT success")
+    res.status(200).send(post)
 })
 
 module.exports = router;
