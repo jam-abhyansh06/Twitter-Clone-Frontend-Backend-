@@ -50,6 +50,14 @@ $(document).on("click", ".likeButton", (event) => {
         type: "PUT",
         success: (postData) => {
             button.find("span").text(postData.likes !== undefined ? postData.likes.length || "" : "")
+
+            if(postData.likes.includes(userLoggedIn._id)) {
+                button.addClass("active")
+            }
+            else 
+            {
+                button.removeClass("active")
+            }
         }
     })
 
@@ -79,6 +87,8 @@ function createPostHtml(postData) {
     let displayName = postedBy.firstName + " " + postedBy.lastName;
     let timestamp = timeDifference(new Date(), new Date(postData.createdAt));
 
+    let likeButtonActiveClass = postData.likes.includes(userLoggedIn._id) ? "active" : "";
+
     return `
             <div class="post" data-id="${postData._id}">
                 <div class='mainContentContainer'>
@@ -100,13 +110,13 @@ function createPostHtml(postData) {
                                     <i class="far fa-comment"></i>
                                 </button>
                             </div>
-                            <div class="postButtonContainer">
-                                <button>
+                            <div class="postButtonContainer green">
+                                <button class="retweet">
                                     <i class="fas fa-retweet"></i>
                                 </button>
                             </div>
-                            <div class="postButtonContainer">
-                                <button class="likeButton">
+                            <div class="postButtonContainer red">
+                                <button class="likeButton ${likeButtonActiveClass}">
                                     <i class="far fa-heart"></i>
                                     <span>${postData.likes !== undefined ? postData.likes.length || "" : ""}</span>
                                 </button>
