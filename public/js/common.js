@@ -64,6 +64,35 @@ $(document).on("click", ".likeButton", (event) => {
 })
 
 
+
+$(document).on("click", ".retweetButton", (event) => {
+    let button = $(event.target);
+    let postId = getPostIdFromElement(button);
+
+    if(postId === undefined) return;
+
+    // ajax call for PUT as shortcut is only available for GET & POST ($.get(), $.post())
+    $.ajax({
+        url: `/api/posts/${postId}/retweet`,
+        type: "POST",
+        success: (postData) => {
+            console.log(postData);
+            // button.find("span").text(postData.likes !== undefined ? postData.likes.length || "" : "")
+
+            // if(postData.likes.includes(userLoggedIn._id)) {
+            //     button.addClass("active")
+            // }
+            // else 
+            // {
+            //     button.removeClass("active")
+            // }
+        }
+    })
+
+})
+
+
+
 function getPostIdFromElement(element) {
     // element which has id (data-id) has class "post"
     let isRoot = element.hasClass("post");              
@@ -111,7 +140,7 @@ function createPostHtml(postData) {
                                 </button>
                             </div>
                             <div class="postButtonContainer green">
-                                <button class="retweet">
+                                <button class="retweetButton">
                                     <i class="fas fa-retweet"></i>
                                 </button>
                             </div>
