@@ -106,7 +106,17 @@ function getPostIdFromElement(element) {
 
 
 function createPostHtml(postData) {
-    
+
+    if(postData === null)    return alert("post object is null");
+
+    // console.log(postData);
+
+    let isRetweet = postData.retweetData !== undefined;
+    let retweetedBy = isRetweet ? postData.postedBy.username : null;
+    postData = isRetweet ? postData.retweetData : postData;
+
+
+
     let postedBy = postData.postedBy;
 
     if(postedBy._id === undefined) {
