@@ -38,9 +38,22 @@ $("#submitPostButton").click(() => {
 // This does not works as button is dynamic
 // $(".likeButton").click(() => alert("hi"))
 
-$(document).on("click", ".likeButton", () => {
-    alert("Hi")
+$(document).on("click", ".likeButton", (event) => {
+    let button = $(event.target);
+    let postId = getPostIdFromElement(button);
 })
+
+
+function getPostIdFromElement(element) {
+    // element which has id (data-id) has class "post"
+    let isRoot = element.hasClass("post");              // check if already at root
+    let rootElement = isRoot == true ? element : element.closest(".post")
+    let postId = rootElement.data().id;                 // .data() gives value for "data-*" attributes
+
+    if(postId === undefined)    return alert("Post Id undefined")
+
+    return postId;
+}
 
 
 function createPostHtml(postData) {
@@ -55,7 +68,7 @@ function createPostHtml(postData) {
     let timestamp = timeDifference(new Date(), new Date(postData.createdAt));
 
     return `
-            <div class="post">
+            <div class="post" data-id="${postData._id}">
                 <div class='mainContentContainer'>
                     <div class='userImageContainer'>
                         <img src='${postedBy.profilePic}'>

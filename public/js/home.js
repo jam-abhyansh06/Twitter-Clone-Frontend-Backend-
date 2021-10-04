@@ -8,7 +8,7 @@ function outputPosts(results, container) {
     container.html("");
 
     results.map(result => {
-        let html = createPostHtml(result);
+        let html = createPostHtml(result)
         container.append(html);
     });
 
