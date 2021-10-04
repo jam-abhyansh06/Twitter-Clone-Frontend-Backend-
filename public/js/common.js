@@ -35,6 +35,13 @@ $("#submitPostButton").click(() => {
     })
 })
 
+// This does not works as button is dynamic
+// $(".likeButton").click(() => alert("hi"))
+
+$(document).on("click", ".likeButton", () => {
+    alert("Hi")
+})
+
 
 function createPostHtml(postData) {
     
@@ -74,7 +81,7 @@ function createPostHtml(postData) {
                                 </button>
                             </div>
                             <div class="postButtonContainer">
-                                <button>
+                                <button class="likeButton">
                                     <i class="far fa-heart"></i>
                                 </button>
                             </div>
