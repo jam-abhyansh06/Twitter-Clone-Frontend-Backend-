@@ -69,6 +69,14 @@ router.put("/:id/like", async (req, res, next) => {
 
     // Insert or Delete post likes
 
+    let post = await Post.findByIdAndUpdate(postId, { [option] : {likes: userId} }, {new: true})
+    .catch(error=> {
+        console.log(error);
+        res.sendStatus(400);
+    })
+
+
+
     res.status(200).send("PUT success")
 })
 
