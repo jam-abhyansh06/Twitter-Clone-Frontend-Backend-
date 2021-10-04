@@ -41,6 +41,16 @@ $("#submitPostButton").click(() => {
 $(document).on("click", ".likeButton", (event) => {
     let button = $(event.target);
     let postId = getPostIdFromElement(button);
+
+    // ajax call for PUT as shortcut is only available for GET & POST ($.get(), $.post())
+    $.ajax({
+        url: "/api/posts",
+        type: "PUT",
+        success: (postData) => {
+            console.log(postData);
+        }
+    })
+
 })
 
 
