@@ -57,8 +57,15 @@ router.put("/:id/like", async (req, res, next) => {
     let option = isLiked ? "$pull" : "$addToSet"
 
     // Insert or Delete user likes
+    
+    // {new: true} gives new updated user object and assigning it to req.session.user caches it so that unliking features work properly
+    
+    req.session.user = await User.findByIdAndUpdate(userId, { [option] : {likes: postId} }, {new: true})
+    .catch(error=> {
+        console.log(error);
+        res.sendStatus(400);
+    })
 
-    await User.findByIdAndUpdate(userId, { [option] : {likes: postId} })
 
     // Insert or Delete post likes
 
