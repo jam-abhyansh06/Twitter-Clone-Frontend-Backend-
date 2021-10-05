@@ -24,6 +24,13 @@ router.get("/:id", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
 
+    // below if just to check if replyTo has value while replying in the reply modal
+    // will be removed later
+    if(req.body.replyTo) {
+        console.log(req.body.replyTo);
+        res.sendStatus(400);
+    }
+
     if(!req.body.content) {
         console.log("Content param not sent with request");
         return res.sendStatus(400);

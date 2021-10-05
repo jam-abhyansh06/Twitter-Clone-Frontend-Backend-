@@ -19,12 +19,22 @@ $("#postTextarea, #replyTextarea").keyup(event => {
 })
 
 
-$("#submitPostButton").click((event) => {
+$("#submitPostButton, #submitReplyButton").click(() => {
     let button = $(event.target);
-    let textbox = $("#postTextarea");
+
+    let isModal = button.parents(".modal").length == 1;
+
+    let textbox = isModal ? $("#replyTextarea") : $("#postTextarea");
 
     let data = {
         content: textbox.val()
+    }
+
+    if( isModal ) {
+        let id = button.data().id;
+        if( id === null) return alert("Button id is null");
+        // adding replyTo key with id value to data object to be sent
+        data.replyTo = id;  
     }
 
     $.post("/api/posts", data, (postData) => {
@@ -98,6 +108,10 @@ $("#replyModal").on("show.bs.modal", (event) => {
 
     let button = $(event.relatedTarget);
     let postId = getPostIdFromElement(button);
+
+    // Attaching postId to submit button when modal opens so that we can get postId
+    // when sending reply to server [in $("#submitPostButton, #submitReplyButton").click(()]
+    $("#submitReplyButton").data("id", postId); 
 
     $.get(`/api/posts/${postId}`, (results) => {
         outputPosts(results, $("#originalPostContainer"));
