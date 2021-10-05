@@ -105,6 +105,11 @@ $("#replyModal").on("show.bs.modal", (event) => {
 })
 
 
+$("#replyModal").on("hidden.bs.modal", () => {
+    $("#originalPostContainer").html("");
+})
+
+
 
 function getPostIdFromElement(element) {
     // element which has id (data-id) has class "post"
