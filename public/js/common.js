@@ -19,7 +19,7 @@ $("#postTextarea, #replyTextarea").keyup(event => {
 })
 
 
-$("#submitPostButton").click(() => {
+$("#submitPostButton").click((event) => {
     let button = $(event.target);
     let textbox = $("#postTextarea");
 
@@ -91,6 +91,18 @@ $(document).on("click", ".retweetButton", (event) => {
         }
     })
 
+})
+
+
+$("#replyModal").on("show.bs.modal", (event) => {
+
+    let button = $(event.relatedTarget);
+    let postId = getPostIdFromElement(button);
+
+    $.get(`/api/posts/${postId}`, (results) => {
+        var html = createPostHtml(results);
+        console.log(html);
+     }) 
 })
 
 

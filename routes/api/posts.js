@@ -25,6 +25,23 @@ router.get("/", (req, res, next) => {
 
 })
 
+
+router.get("/:id", (req, res, next) => {
+
+    // res.status(200).send(req.params.id)
+    Post.findById(req.params.id)
+    .populate("postedBy")
+    .populate("retweetData")
+    .then(results => {
+        res.status(200).send(results);
+    })
+    .catch(error => {
+        console.log(error);
+        res.sendStatus(400)
+    })
+
+})
+
 router.post("/", async (req, res, next) => {
 
     if(!req.body.content) {
