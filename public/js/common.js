@@ -100,8 +100,7 @@ $("#replyModal").on("show.bs.modal", (event) => {
     let postId = getPostIdFromElement(button);
 
     $.get(`/api/posts/${postId}`, (results) => {
-        var html = createPostHtml(results);
-        console.log(html);
+        outputPosts(results, $("#originalPostContainer"));
      }) 
 })
 
@@ -232,5 +231,22 @@ function timeDifference(current, previous) {
 
     else {
         return Math.round(elapsed/msPerYear ) + ' years ago';   
+    }
+}
+
+function outputPosts(results, container) {
+    container.html("");
+
+    if(!Array.isArray(results)) {
+        results = [results];
+    }
+
+    results.map(result => {
+        let html = createPostHtml(result)
+        container.append(html);
+    });
+
+    if(results.length == 0) {
+        container.append("<span class='noResults'>Nothing to show.</span>")
     }
 }
