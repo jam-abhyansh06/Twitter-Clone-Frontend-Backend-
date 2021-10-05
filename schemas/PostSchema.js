@@ -24,6 +24,10 @@ const postSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref:'Post'
     },
+    replyTo: {
+        type: Schema.Types.ObjectId,
+        ref:'Post'
+    },
 }, { timestamps: true });
 
 
