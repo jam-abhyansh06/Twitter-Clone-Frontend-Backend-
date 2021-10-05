@@ -38,12 +38,19 @@ $("#submitPostButton, #submitReplyButton").click(() => {
     }
 
     $.post("/api/posts", data, (postData) => {
-        
-        var html = createPostHtml(postData);
-        $(".postsContainer").prepend(html);
 
-        textbox.val("");
-        button.prop("disabled", true);
+        if(postData.replyTo) {
+            // if it is a reply
+            location.reload();
+        }
+        else {
+            // if it is a new post
+            var html = createPostHtml(postData);
+            $(".postsContainer").prepend(html);
+
+            textbox.val("");
+            button.prop("disabled", true);
+        }
     })
 })
 
