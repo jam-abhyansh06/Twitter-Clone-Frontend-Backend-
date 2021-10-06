@@ -83,7 +83,6 @@ $(document).on("click", ".likeButton", (event) => {
 })
 
 
-
 $(document).on("click", ".retweetButton", (event) => {
     let button = $(event.target);
     let postId = getPostIdFromElement(button);
@@ -109,6 +108,18 @@ $(document).on("click", ".retweetButton", (event) => {
     })
 
 })
+
+
+$(document).on("click", ".post", (event) => {
+    let element = $(event.target);
+    let postId = getPostIdFromElement(element);
+
+    if(postId !== undefined && !element.is("button")) {
+        window.location.href = "/post/" + postId;
+    }
+
+})
+
 
 
 $("#replyModal").on("show.bs.modal", (event) => {
