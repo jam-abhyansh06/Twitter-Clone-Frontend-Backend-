@@ -150,14 +150,19 @@ $("#deletePostModal").on("show.bs.modal", (event) => {
     // Attaching postId to submit button when modal opens so that we can get postId
     // when sending reply to server [in $("#submitPostButton, #submitReplyButton").click(()]
     $("#deletePostButton").data("id", postId); 
-
-    console.log($("#deletePostButton").data().id);
-
-    // $.get(`/api/posts/${postId}`, (results) => {
-    //     outputPosts(results.postData, $("#originalPostContainer"));
-    //  }) 
 })
 
+$("#deletePostButton").click((event) => {
+    let postId = $(event.target).data("id");
+
+    $.ajax({
+        url: `/api/posts/${postId}`,
+        type: "DELETE",
+        success: () => {
+            location.reload();
+        }
+    })
+})
 
 
 function getPostIdFromElement(element) {
