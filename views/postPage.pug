@@ -1,0 +1,12 @@
+extends layouts/main-layout.pug
+
+block content
+  script.
+    //- postId to be used in postPage.js to make request to api
+    let postId = "!{postId}"
+  .postsContainer
+
+  +createReplyModal(userLoggedIn)
+
+block scripts
+  script(src="/js/postPage.js") 
