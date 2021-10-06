@@ -142,6 +142,23 @@ $("#replyModal").on("hidden.bs.modal", () => {
 })
 
 
+$("#deletePostModal").on("show.bs.modal", (event) => {
+
+    let button = $(event.relatedTarget);
+    let postId = getPostIdFromElement(button);
+
+    // Attaching postId to submit button when modal opens so that we can get postId
+    // when sending reply to server [in $("#submitPostButton, #submitReplyButton").click(()]
+    $("#deletePostButton").data("id", postId); 
+
+    console.log($("#deletePostButton").data().id);
+
+    // $.get(`/api/posts/${postId}`, (results) => {
+    //     outputPosts(results.postData, $("#originalPostContainer"));
+    //  }) 
+})
+
+
 
 function getPostIdFromElement(element) {
     // element which has id (data-id) has class "post"
