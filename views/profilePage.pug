@@ -1,11 +1,14 @@
 extends layouts/main-layout.pug
 
 block content
+    //- condition to check if the payload we got from profileRoute is of user-does-not-exist
+    if !profileUser
+        span.errorMessage Invalid url. Please check again.
+    else
+        span #{profileUser.firstName}
+        .postsContainer
 
-    span #{profileUser.firstName}
-    .postsContainer
-
-    +createPostModals(userLoggedIn)
+        +createPostModals(userLoggedIn)
 
 block scripts
     script(src="/js/profile.js") 
