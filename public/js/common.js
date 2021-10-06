@@ -155,7 +155,7 @@ function getPostIdFromElement(element) {
 }
 
 
-function createPostHtml(postData) {
+function createPostHtml(postData, largeFont = false) {
 
     if(postData === null)    return alert("post object is null");
 
@@ -204,8 +204,10 @@ function createPostHtml(postData) {
                     </div>`
     }
 
+    let largeFontClass = largeFont ? "largeFont" : "";
+
     return `
-            <div class="post" data-id="${postData._id}">
+            <div class="post ${largeFontClass}" data-id="${postData._id}">
                 <div class="postActionContainer">
                     ${retweetText}
                 </div>
@@ -314,7 +316,7 @@ function outputPostsWithReplies(results, container) {
         container.append(html);
     }
 
-    let mainPostHtml = createPostHtml(results.postData)
+    let mainPostHtml = createPostHtml(results.postData, true)
     container.append(mainPostHtml)
 
     results.replies.map(result => {
