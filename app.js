@@ -19,7 +19,8 @@ app.use(session({
   saveUninitialized: false
 }))
 
-// Routes
+
+// Normal Routes
 const loginRoute = require("./routes/loginRoutes")
 const registerRoute = require("./routes/registerRoutes")
 const logoutRoute = require("./routes/logoutRoutes")
@@ -29,12 +30,13 @@ const postRoute = require("./routes/postRoutes")
 app.use("/login",loginRoute)
 app.use("/register",registerRoute)
 app.use("/logout",logoutRoute)
-app.use("/posts",postRoute)
+app.use("/posts", middleware.requireLogin, postRoute)
 
 
 
 // API Routes
 const apiPostsRoute = require("./routes/api/posts")
+
 app.use("/api/posts",apiPostsRoute)
 
 
