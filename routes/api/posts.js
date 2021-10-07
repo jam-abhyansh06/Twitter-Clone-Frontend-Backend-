@@ -9,7 +9,16 @@ const app = express();
 app.use(bodyParser.urlencoded({extended: true}))
 
 router.get("/", async (req, res, next) => {
-    let results = await getPosts({});
+
+    let searchObj = req.query;
+
+    if(searchObj.isReply !== undefined) {
+        let isReply = searchObj.isReply == "true";
+        searchObj.replyTo = { $exists: isReply }        // mongoDB operator $exists
+        delete searchObj.isReply;       // delete isReply from obj as it is not in schema
+    }
+
+    let results = await getPosts(searchObj);
     res.status(200).send(results);
 })
 

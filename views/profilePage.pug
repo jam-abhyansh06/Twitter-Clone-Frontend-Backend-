@@ -5,6 +5,9 @@ block content
     if !profileUser
         span.errorMessage Invalid url. Please check again.
     else
+        script.
+          let profileUserId = "!{profileUser._id}"  // added here as once the layout rendered, it does not has access to payload
+        
         .profileHeaderContainer
             .coverPhotoContainer 
 
