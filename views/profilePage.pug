@@ -18,7 +18,7 @@ block content
                     a.profileButton(href=`/messages/${profileUser._id}`)
                         i.fas.fa-envelope
                     //- at present, passing just a default value true, will handle it later
-                    +createFollowButton(profileUser, true) 
+                    +createFollowButton(profileUser, false) 
             .userDetailsContainer
                 span.displayName #{profileUser.firstName} #{profileUser.lastName}
                 span.username @#{profileUser.username}

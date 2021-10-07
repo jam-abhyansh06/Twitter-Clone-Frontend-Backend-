@@ -38,8 +38,10 @@ app.use("/profile", middleware.requireLogin, profileRoute)
 
 // API Routes
 const apiPostsRoute = require("./routes/api/posts")
+const apiUsersRoute = require("./routes/api/users")
 
 app.use("/api/posts",apiPostsRoute)
+app.use("/api/users",apiUsersRoute)
 
 
 
