@@ -121,6 +121,13 @@ $(document).on("click", ".post", (event) => {
 })
 
 
+$(document).on("click", ".followButton", (event) => {
+    let button = $(event.target)
+    let userId = button.data().user;
+    console.log(userId);
+})
+
+
 
 $("#replyModal").on("show.bs.modal", (event) => {
 
