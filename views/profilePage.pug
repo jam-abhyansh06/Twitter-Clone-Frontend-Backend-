@@ -16,6 +16,19 @@ block content
                         i.fas.fa-envelope
                     //- at present, passing just a default value true, will handle it later
                     +createFollowButton(profileUser, true) 
+            .userDetailsContainer
+                span.displayName #{profileUser.firstName} #{profileUser.lastName}
+                span.username @#{profileUser.username}
+                span.description #{profileUser.description}
+
+                .followersContainer 
+                    a(href=`/profile/${profileUser.username}/following`)
+                        span.value #{0}
+                        span Following
+                    a(href=`/profile/${profileUser.username}/followers`)
+                        span.value #{0}
+                        span Followers
+
         .postsContainer
 
         +createPostModals(userLoggedIn)
