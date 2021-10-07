@@ -254,3 +254,23 @@ button span {
 .errorMessage {
     padding: var(--spacing);
 }
+
+.profileHeaderContainer .coverPhotoContainer {
+    height: 180px;
+    background-color: var(--blue);
+    position: relative;
+}
+
+.profileHeaderContainer .userImageContainer {
+    height: 132px;
+    width: 132px;
+    margin-left: var(--spacing);
+    position: absolute;
+    bottom: -66px; 
+    /* bottom in 1/2 of 132px; */
+}
+
+
+.profileHeaderContainer .userImageContainer img {
+    border: 4px solid #fff;
+}

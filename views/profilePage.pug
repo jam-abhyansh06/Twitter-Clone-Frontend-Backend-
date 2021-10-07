@@ -5,7 +5,11 @@ block content
     if !profileUser
         span.errorMessage Invalid url. Please check again.
     else
-        span #{profileUser.firstName}
+        .profileHeaderContainer
+            .coverPhotoContainer 
+
+                .userImageContainer 
+                    img( src=profileUser.profilePic, alt="User Profile Image")
         .postsContainer
 
         +createPostModals(userLoggedIn)
