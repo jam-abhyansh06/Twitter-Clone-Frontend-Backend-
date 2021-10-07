@@ -36,11 +36,22 @@ async function getPayload(username, userLoggedIn) {
     let user = await User.findOne({username : username});   // find user in DB
 
     // if username param in url is not in DB
-    if(user === null) {
-        return {
-            pageTitle: "User not found",
-            userLoggedIn: userLoggedIn,
-            userLoggedInJs: JSON.stringify(userLoggedIn),
+    if(user == null) {
+        // checking if might be the username in url is id of the user
+        await User.findById(username)
+        .then(result => user=result)
+        .catch(err => {
+            console.log(err);
+            return {};
+        })
+           
+        
+        if(user == null) {
+            return {
+                pageTitle: "User not found",
+                userLoggedIn: userLoggedIn,
+                userLoggedInJs: JSON.stringify(userLoggedIn),
+            }
         }
     }
 
