@@ -58,6 +58,11 @@ nav a:hover {
     border-radius: 50%;
 }
 
+/* > instructs to apply style to only first instance of row in wrapper */
+.wrapper > .row {
+    margin: 0;
+}
+
 button {
     background-color: transparent;
     border: none;
