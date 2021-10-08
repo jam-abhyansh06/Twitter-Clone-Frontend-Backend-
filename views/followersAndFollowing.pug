@@ -1,0 +1,19 @@
+extends layouts/main-layout.pug
+
+block content
+    //- condition to check if the payload we got from profileRoute is of user-does-not-exist
+    if !profileUser
+        span.errorMessage Invalid url. Please check again.
+    else
+        script.
+          let profileUserId = "!{profileUser._id}"  // added here as once the layout rendered, it does not has access to payload
+          let selectedTab = "!{selectedTab}"
+
+        .tabsContainer 
+            +createTab("Following", `/profile/${profileUser.username}/following`, selectedTab != "followers")
+            +createTab("Followers", `/profile/${profileUser.username}/followers`, selectedTab == "followers")
+
+        .resultsContainer 
+
+block scripts
+    script(src="/js/followersAndFollowing.js") 
