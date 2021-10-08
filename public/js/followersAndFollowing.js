@@ -1,10 +1,10 @@
 $(document).ready(()  => {
 
     if(selectedTab === "following") {
-        loadFollowers();
+        loadFollowing();
     }
     else {
-        loadFollowing();
+        loadFollowers();
     }
     
 })
@@ -39,15 +39,33 @@ function createUserHtml(userData, showFollowButton) {
 
     let name = userData.firstName + " " + userData.lastName;
 
+    let isFollowing = userLoggedIn.following && userLoggedIn.following.includes(userData._id)
+
+
+    let text = isFollowing ? "Following" : "Follow"
+    let buttonClass = isFollowing ? "followButton following" : "followButton"
+
+    let followButton = ""
+    if(showFollowButton && userLoggedIn._id != userData._id) {
+        followButton = `
+                        <div class ="followButtonContainer">
+                            <button class="${buttonClass}" data-user="${userData._id}">${text}</button>
+                        </div>
+                        `
+    }
+
     return `
             <div class="user">
                 <div class="userImageContainer">
                     <img src="${userData.profilePic}">
                 </div>
-                <div class="userDetailsContainer">
-                    <a href="/profile/${userData.username}">${name}</a>
-                    <span class="username">@${userData.username}</span>
+                <div class='userDetailsContainer'>
+                    <div class='header'>
+                        <a href='/profile/${userData.username}'>${name}</a>
+                        <span class='username'>@${userData.username}</span>
+                    </div>
                 </div>
+                ${followButton}
             </div>
             `;
 }
