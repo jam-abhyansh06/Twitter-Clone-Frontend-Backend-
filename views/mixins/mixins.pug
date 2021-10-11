@@ -73,7 +73,7 @@ mixin createImageUploadModal(userLoggedIn)
                     button.close(type='button', data-bs-dismiss='modal', aria-label='Close')
                     span(aria-hidden='true') &times;
                 .modal-body
-                    p You won't be able to recover this later.
+                    input#filePhoto(type="file", name="filePhoto")
                 .modal-footer
                     button.btn.btn-secondary(type='button', data-bs-dismiss='modal') Cancel
                     button#imageUploadButton.btn.btn-primary(type='button') Save
