@@ -202,6 +202,20 @@ $("#deletePostButton").click((event) => {
 })
 
 
+$("#filePhoto").change(function(){
+
+    // checking if files array is present and it's not empty
+    if(this.files && this.files[0]) {
+        let reader = new FileReader();
+        reader.onload = (e) => {
+            // console.log("loaded");
+            $("#imagePreview").attr("src", e.target.result);
+        }
+        reader.readAsDataURL(this.files[0]);
+    }
+})
+
+
 function getPostIdFromElement(element) {
     // element which has id (data-id) has class "post"
     let isRoot = element.hasClass("post");              
