@@ -248,6 +248,7 @@ $("#imageUploadButton").click(() => {
         $.ajax({
             url: "/api/users/profilePicture",
             type: "POST",
+            data: formData,
             processData: false,     // prevents jquery to convert data to string
             contentType: false,     // forces jquery to not set contentType header
             success: () => location.reload()
