@@ -228,19 +228,27 @@ $("#filePhoto").change(function() {
         }
         reader.readAsDataURL(this.files[0]);
     }
+    else {
+        console.log("Problem in cropper part");
+    }
 })
 
-// let image = document.getElementById("imagePreview");
-//             image.src = e.target.result;
-            
-//             if(cropper !== undefined) {
-//                 cropper.destroy();
-//             }
+$("#imageUploadButton").click(() => {
+    let canvas = cropper.getCroppedCanvas();
 
-//             cropper = new Cropper(image, {
-//                 aspectRatio: 1 / 1,                 // square
-//                 background: false
-//             });
+    if(canvas === null) {
+        alert("Could not upload image. Make sure uploaded file is an image.")
+        return;
+    }
+
+    canvas.toBlob((blob) => {
+        let formData = new FormData();
+        formData.append("croppedImage", blob);
+    })
+
+    console.log(formData);
+
+})
 
 function getPostIdFromElement(element) {
     // element which has id (data-id) has class "post"
