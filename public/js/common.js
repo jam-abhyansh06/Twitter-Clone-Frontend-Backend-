@@ -244,9 +244,17 @@ $("#imageUploadButton").click(() => {
     canvas.toBlob((blob) => {
         let formData = new FormData();
         formData.append("croppedImage", blob);
+
+        $.ajax({
+            url: "/api/users/profilePicture",
+            type: "POST",
+            processData: false,     // prevents jquery to convert data to string
+            contentType: false,     // forces jquery to not set contentType header
+            success: () => location.reload()
+        })
     })
 
-    console.log(formData);
+    
 
 })
 
