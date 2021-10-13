@@ -233,6 +233,31 @@ $("#filePhoto").change(function() {
     }
 })
 
+$("#coverPhoto").change(function() {
+
+    // checking if files array is present and it's not empty
+    if(this.files && this.files[0]) {
+        let reader = new FileReader();
+        reader.onload = (e) => {
+            // console.log("loaded");
+            let image = document.getElementById("coverPreview")
+            image.src = e.target.result;
+            
+            // let image = $("#imagePreview").attr("src", e.target.result);
+            // console.log(image);
+            if(cropper !== undefined) {
+                cropper.destroy();
+            }
+
+            cropper = new Cropper(image, {
+                aspectRatio: 16 / 9,                 // square
+                background: false
+            });
+        }
+        reader.readAsDataURL(this.files[0]);
+    }
+})
+
 $("#imageUploadButton").click(() => {
     let canvas = cropper.getCroppedCanvas();
 
@@ -247,6 +272,32 @@ $("#imageUploadButton").click(() => {
 
         $.ajax({
             url: "/api/users/profilePicture",
+            type: "POST",
+            data: formData,
+            processData: false,     // prevents jquery to convert data to string
+            contentType: false,     // forces jquery to not set contentType header
+            success: () => location.reload()
+        })
+    })
+
+    
+
+})
+
+$("#coverPhotoButton").click(() => {
+    let canvas = cropper.getCroppedCanvas();
+
+    if(canvas === null) {
+        alert("Could not upload image. Make sure uploaded file is an image.")
+        return;
+    }
+
+    canvas.toBlob((blob) => {
+        let formData = new FormData();
+        formData.append("croppedImage", blob);
+
+        $.ajax({
+            url: "/api/users/coverPhoto",
             type: "POST",
             data: formData,
             processData: false,     // prevents jquery to convert data to string

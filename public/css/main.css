@@ -405,9 +405,11 @@ button span {
     height: 100%;
 }
 
-#imagePreview {
+#imagePreview,
+#coverPreview {
     width: 100%;
     display: block;
+    /* This rule is important for cropper preview to fit in */
     max-width: 100%;
 }
 

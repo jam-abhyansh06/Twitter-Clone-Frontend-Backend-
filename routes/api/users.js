@@ -116,4 +116,39 @@ router.post("/profilePicture", upload.single("croppedImage"), async (req, res, n
 
 })
 
+
+router.post("/coverPhoto", upload.single("croppedImage"), async (req, res, next) => {
+
+    if(!req.file) {
+        console.log("No file uploaded with ajax request");
+        return res.sendStatus(400);
+    }
+
+    let filePath = `/uploads/images/${req.file.filename}.png`;
+    let tempPath = req.file.path;
+    let targetPath = path.join(__dirname, `../../${filePath}`)
+
+    // move file from old path(tempPath) to new path(targetPath)
+    fs.rename(tempPath, targetPath, async error => {
+        if(error !== null) {
+            console.log(error);
+            return res.sendStatus(400);
+        }
+
+        // update profilePic path in the DB
+        await User.findByIdAndUpdate(req.session.user._id, { coverPhoto: filePath }, { new: true })
+        .then(result => req.session.user = result)
+        .catch(err => {
+            console.log(err);
+            return res.sendStatus(400);
+        })
+
+        res.sendStatus(204);
+
+    })
+
+
+})
+
+
 module.exports = router;
