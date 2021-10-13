@@ -17,7 +17,7 @@ block content
 
                 .coverPhotoContainer
                     if profileUser._id === userLoggedIn._id
-                        button.coverPhotoButton(data-bs-toggle="modal", data-bs-target="#imageUploadModal")
+                        button.coverPhotoButton(data-bs-toggle="modal", data-bs-target="#coverPhotoUploadModal")
                             i.fas.fa-camera
 
                 .userImageContainer 
@@ -60,6 +60,7 @@ block content
 
         +createPostModals(userLoggedIn)
         +createImageUploadModal(userLoggedIn)
+        +createCoverPhotoUploadModal(userLoggedIn)
 
 block scripts
     script(src="/js/profile.js") 
