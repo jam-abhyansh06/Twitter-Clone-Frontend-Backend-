@@ -274,6 +274,11 @@ button span {
     position: absolute;
     bottom: -66px; 
     /* bottom in 1/2 of 132px; */
+
+    /* for .profilePictureButton */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 
@@ -377,4 +382,22 @@ button span {
 .user .userDetailsContainer {
     flex: 1;
     padding: 0 var(--spacing);
+}
+
+.profilePictureButton {
+    position: absolute;
+    font-size: 50px;
+    color: rgba(0,0,0,0.6);
+    display: none;
+}
+
+/* apply style to .profilePictureButton when hover over .userImageContainer */
+.userImageContainer:hover .profilePictureButton {
+    display: block;
+}
+
+#imagePreview {
+    width: 100%;
+    display: block;
+    max-width: 100%;
 }
