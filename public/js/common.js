@@ -376,7 +376,10 @@ function createPostHtml(postData, largeFont = false) {
 
     let buttons=""
     if(postData.postedBy._id == userLoggedIn._id) {
-        buttons =   `<button data-id="${postData._id}" data-bs-toggle="modal" data-bs-target="#deletePostModal">
+        buttons =   `<button data-id="${postData._id}" data-bs-toggle="modal" data-bs-target="#confirmPinModal">
+                        <i class="fas fa-thumbtack"></i>
+                    </button>
+                    <button data-id="${postData._id}" data-bs-toggle="modal" data-bs-target="#deletePostModal">
                         <i class="fas fa-times"></i>
                     </button>`
     }
