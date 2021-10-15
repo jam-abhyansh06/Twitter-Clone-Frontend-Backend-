@@ -202,6 +202,17 @@ $("#confirmPinModal").on("show.bs.modal", (event) => {
     $("#pinPostButton").data("id", postId); 
 })
 
+$("#unpinModal").on("show.bs.modal", (event) => {
+
+    let button = $(event.relatedTarget);
+    let postId = getPostIdFromElement(button);
+
+    // Attaching postId to submit button when modal opens so that we can get postId
+    // when sending reply to server [in $("#submitPostButton, #submitReplyButton").click(()]
+    $("#unpinPostButton").data("id", postId); 
+})
+
+
 $("#deletePostButton").click((event) => {
     let postId = $(event.target).data("id");
 
@@ -231,6 +242,26 @@ $("#pinPostButton").click((event) => {
 
             if(xhr.status != 204) {
                 alert("could not pin the post");
+                return;
+            }
+
+            location.reload();
+        }
+    })
+})
+
+
+$("#unpinPostButton").click((event) => {
+    let postId = $(event.target).data("id");
+
+    $.ajax({
+        url: `/api/posts/${postId}`,
+        type: "PUT",
+        data: {pinned: false},
+        success: (data, status, xhr) => {
+
+            if(xhr.status != 204) {
+                alert("could not unpin the post");
                 return;
             }
 
@@ -414,12 +445,15 @@ function createPostHtml(postData, largeFont = false) {
     if(postData.postedBy._id == userLoggedIn._id) {
 
         let pinnedClass = "";
+        let dataTarget = "#confirmPinModal";
+
         if(postData.pinned === true) {
             pinnedClass = "active";
             pinnedPostText = "<i class='fas fa-thumbtack'></i><span> Pinned post</span>"
+            dataTarget = "#unpinModal"
         }
 
-        buttons =   `<button class="pinButton ${pinnedClass}" data-id="${postData._id}" data-bs-toggle="modal" data-bs-target="#confirmPinModal">
+        buttons =   `<button class="pinButton ${pinnedClass}" data-id="${postData._id}" data-bs-toggle="modal" data-bs-target="${dataTarget}">
                         <i class="fas fa-thumbtack"></i>
                     </button>
                     <button data-id="${postData._id}" data-bs-toggle="modal" data-bs-target="#deletePostModal">

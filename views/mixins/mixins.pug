@@ -49,6 +49,7 @@ mixin createPostModals(userLoggedIn)
     +createReplyModal(userLoggedIn)
     +createDeletePostModal(userLoggedIn)
     +createPinnedPostModal(userLoggedIn)
+    +createUnpinPostModal(userLoggedIn)
 
 
 mixin createFollowButton(user, isFollowing)
@@ -120,3 +121,18 @@ mixin createPinnedPostModal(userLoggedIn)
                 .modal-footer
                     button.btn.btn-secondary(type='button', data-bs-dismiss='modal') Cancel
                     button#pinPostButton.btn.btn-primary(type='button') Pin
+
+
+mixin createUnpinPostModal(userLoggedIn)
+    #unpinModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='unpinModalLabel', aria-hidden='true')
+        .modal-dialog(role='document')
+            .modal-content
+                .modal-header
+                    h5#unpinModalLabel.modal-title Unpin this post?
+                    button.close(type='button', data-bs-dismiss='modal', aria-label='Close')
+                    span(aria-hidden='true') &times;
+                .modal-body
+                    p This post will get unpinned from your profile.
+                .modal-footer
+                    button.btn.btn-secondary(type='button', data-bs-dismiss='modal') Cancel
+                    button#unpinPostButton.btn.btn-primary(type='button') Unpin
