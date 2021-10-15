@@ -420,3 +420,7 @@ button span {
     /* This rule is important for cropper preview to fit in */
     max-width: 100%;
 }
+
+.pinButton.active {
+    color: var(--blue);
+}

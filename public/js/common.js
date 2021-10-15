@@ -411,7 +411,13 @@ function createPostHtml(postData, largeFont = false) {
 
     let buttons=""
     if(postData.postedBy._id == userLoggedIn._id) {
-        buttons =   `<button data-id="${postData._id}" data-bs-toggle="modal" data-bs-target="#confirmPinModal">
+
+        let pinnedClass = "";
+        if(postData.pinned === true) {
+            pinnedClass = "active";
+        }
+
+        buttons =   `<button class="pinButton ${pinnedClass}" data-id="${postData._id}" data-bs-toggle="modal" data-bs-target="#confirmPinModal">
                         <i class="fas fa-thumbtack"></i>
                     </button>
                     <button data-id="${postData._id}" data-bs-toggle="modal" data-bs-target="#deletePostModal">
