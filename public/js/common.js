@@ -409,12 +409,14 @@ function createPostHtml(postData, largeFont = false) {
     let largeFontClass = largeFont ? "largeFont" : "";  // to highlight main post in reply section
 
 
+    let pinnedPostText ="";
     let buttons=""
     if(postData.postedBy._id == userLoggedIn._id) {
 
         let pinnedClass = "";
         if(postData.pinned === true) {
             pinnedClass = "active";
+            pinnedPostText = "<i class='fas fa-thumbtack'></i><span> Pinned post</span>"
         }
 
         buttons =   `<button class="pinButton ${pinnedClass}" data-id="${postData._id}" data-bs-toggle="modal" data-bs-target="#confirmPinModal">
@@ -439,6 +441,9 @@ function createPostHtml(postData, largeFont = false) {
                         <img src='${postedBy.profilePic}'>
                     </div>
                     <div class='postContentContainer'>
+                        <div class="pinnedPostText">
+                            ${pinnedPostText}
+                        </div>
                         <div class='header'>
                             <a href="/profile/${postedBy.username}" class="displayName">${displayName}</a>
                             <span class="username">@${postedBy.username}</span>
