@@ -48,6 +48,8 @@ mixin createDeletePostModal(userLoggedIn)
 mixin createPostModals(userLoggedIn)
     +createReplyModal(userLoggedIn)
     +createDeletePostModal(userLoggedIn)
+    +createPinnedPostModal(userLoggedIn)
+    +createUnpinPostModal(userLoggedIn)
 
 
 mixin createFollowButton(user, isFollowing)
@@ -102,3 +104,35 @@ mixin createCoverPhotoUploadModal(userLoggedIn)
                 .modal-footer
                     button.btn.btn-secondary(type='button', data-bs-dismiss='modal') Cancel
                     button#coverPhotoButton.btn.btn-primary(type='button') Save
+
+
+
+
+mixin createPinnedPostModal(userLoggedIn)
+    #confirmPinModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='confirmPinModalLabel', aria-hidden='true')
+        .modal-dialog(role='document')
+            .modal-content
+                .modal-header
+                    h5#confirmPinModalLabel.modal-title Pin this post?
+                    button.close(type='button', data-bs-dismiss='modal', aria-label='Close')
+                    span(aria-hidden='true') &times;
+                .modal-body
+                    p This post will appear at the top of your profile. You can pin only one post.
+                .modal-footer
+                    button.btn.btn-secondary(type='button', data-bs-dismiss='modal') Cancel
+                    button#pinPostButton.btn.btn-primary(type='button') Pin
+
+
+mixin createUnpinPostModal(userLoggedIn)
+    #unpinModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='unpinModalLabel', aria-hidden='true')
+        .modal-dialog(role='document')
+            .modal-content
+                .modal-header
+                    h5#unpinModalLabel.modal-title Unpin this post?
+                    button.close(type='button', data-bs-dismiss='modal', aria-label='Close')
+                    span(aria-hidden='true') &times;
+                .modal-body
+                    p This post will get unpinned from your profile.
+                .modal-footer
+                    button.btn.btn-secondary(type='button', data-bs-dismiss='modal') Cancel
+                    button#unpinPostButton.btn.btn-primary(type='button') Unpin
