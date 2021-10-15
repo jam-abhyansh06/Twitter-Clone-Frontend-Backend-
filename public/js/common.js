@@ -192,13 +192,48 @@ $("#deletePostModal").on("show.bs.modal", (event) => {
     $("#deletePostButton").data("id", postId); 
 })
 
+$("#confirmPinModal").on("show.bs.modal", (event) => {
+
+    let button = $(event.relatedTarget);
+    let postId = getPostIdFromElement(button);
+
+    // Attaching postId to submit button when modal opens so that we can get postId
+    // when sending reply to server [in $("#submitPostButton, #submitReplyButton").click(()]
+    $("#pinPostButton").data("id", postId); 
+})
+
 $("#deletePostButton").click((event) => {
     let postId = $(event.target).data("id");
 
     $.ajax({
         url: `/api/posts/${postId}`,
         type: "DELETE",
-        success: () => {
+        success: (data, status, xhr) => {
+
+            if(xhr.status != 202) {
+                alert("could not delete the post");
+                return;
+            }
+
+            location.reload();
+        }
+    })
+})
+
+$("#pinPostButton").click((event) => {
+    let postId = $(event.target).data("id");
+
+    $.ajax({
+        url: `/api/posts/${postId}`,
+        type: "PUT",
+        data: {pinned: true},
+        success: (data, status, xhr) => {
+
+            if(xhr.status != 204) {
+                alert("could not pin the post");
+                return;
+            }
+
             location.reload();
         }
     })
